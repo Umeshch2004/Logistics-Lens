@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -27,7 +28,7 @@ export function AppSidebar() {
       const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
       return (
         <SidebarMenuItem key={item.title}>
-          <Link href={item.href} passHref legacyBehavior>
+          <Link href={item.href}>
             <SidebarMenuButton
               asChild={false} // Ensure it's a button for proper styling and ARIA roles
               isActive={isActive}
