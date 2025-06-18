@@ -38,10 +38,10 @@ export function AppSidebar() {
               )}
               aria-current={isActive ? "page" : undefined}
             >
-              <>
+              <span>
                 <item.icon className="mr-2 h-5 w-5" />
                 <span>{item.title}</span>
-              </>
+              </span>
             </SidebarMenuButton>
           </Link>
         </SidebarMenuItem>
