@@ -30,7 +30,7 @@ export function AppSidebar() {
         <SidebarMenuItem key={item.title}>
           <Link href={item.href}>
             <SidebarMenuButton
-              asChild={false} // Ensure it's a button for proper styling and ARIA roles
+              asChild={true} 
               isActive={isActive}
               className={cn(
                 "w-full justify-start",
@@ -38,8 +38,10 @@ export function AppSidebar() {
               )}
               aria-current={isActive ? "page" : undefined}
             >
-              <item.icon className="mr-2 h-5 w-5" />
-              <span>{item.title}</span>
+              <>
+                <item.icon className="mr-2 h-5 w-5" />
+                <span>{item.title}</span>
+              </>
             </SidebarMenuButton>
           </Link>
         </SidebarMenuItem>
