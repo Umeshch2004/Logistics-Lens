@@ -3,7 +3,7 @@
 import * as React from "react";
 import type { DateRange } from "react-day-picker";
 import { DollarSign, ArrowRightLeft, Users, Archive } from "lucide-react";
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis, PieChart, Pie, Tooltip, Legend, Cell } from "recharts";
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis, PieChart, Pie, Tooltip, Legend, Cell, ResponsiveContainer } from "recharts";
 
 import { MetricCard } from "@/components/dashboard/MetricCard";
 import { FilterControls } from "@/components/shared/FilterControls";
@@ -21,12 +21,12 @@ import {
 
 // Data for charts
 const assetDistributionData = [
-  { category: "Vehicles", count: 250 },
-  { category: "Weapons", count: 480 },
-  { category: "Ammunition", count: 1200 },
-  { category: "Electronics", count: 320 },
-  { category: "Rations", count: 800 },
-  { category: "MedicalSupplies", count: 150 },
+  { category: "Vehicles", count: 250, fill: "var(--color-Vehicles)" },
+  { category: "Weapons", count: 480, fill: "var(--color-Weapons)" },
+  { category: "Ammunition", count: 1200, fill: "var(--color-Ammunition)" },
+  { category: "Electronics", count: 320, fill: "var(--color-Electronics)" },
+  { category: "Rations", count: 800, fill: "var(--color-Rations)" },
+  { category: "Medical Supplies", count: 150, fill: "var(--color-MedicalSupplies)" },
 ];
 
 const assetDistributionChartConfig = {
@@ -65,27 +65,30 @@ const AssetDistributionChart = () => (
         config={assetDistributionChartConfig}
         className="mx-auto aspect-square max-h-[350px]"
       >
-        <PieChart>
-          <Tooltip
-            cursor={false}
-            content={<ChartTooltipContent hideLabel nameKey="category" />}
-          />
-          <Pie
-            data={assetDistributionData}
-            dataKey="count"
-            nameKey="category"
-            innerRadius={60}
-            strokeWidth={5}
-          >
-            {assetDistributionData.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={`var(--color-${entry.category})`} className="stroke-background" />
-            ))}
-          </Pie>
-          <ChartLegend
-            content={<ChartLegendContent nameKey="category" />}
-            className="-translate-y-2 flex-wrap gap-2 [&>*]:basis-1/4 [&>*]:justify-center"
-          />
-        </PieChart>
+        <ResponsiveContainer width="100%" height="100%">
+          <PieChart>
+            <Tooltip
+              cursor={false}
+              content={<ChartTooltipContent hideLabel />}
+            />
+            <Pie
+              data={assetDistributionData}
+              dataKey="count"
+              nameKey="category"
+              innerRadius={60}
+              strokeWidth={5}
+            >
+              {assetDistributionData.map((entry) => (
+                <Cell
+                  key={`cell-${entry.category}`}
+                  fill={entry.fill}
+                  className="stroke-background"
+                />
+              ))}
+            </Pie>
+            <Legend />
+          </PieChart>
+        </ResponsiveContainer>
       </ChartContainer>
     </CardContent>
   </Card>
