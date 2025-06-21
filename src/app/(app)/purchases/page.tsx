@@ -37,8 +37,8 @@ const generateMockPurchases = (count: number): Purchase[] => {
 
 
 export default function PurchasesPage() {
-  const [purchases, setPurchases] = React.useState<Purchase[]>(() => generateMockPurchases(20));
-  const [filteredPurchases, setFilteredPurchases] = React.useState<Purchase[]>(purchases);
+  const [purchases, setPurchases] = React.useState<Purchase[]>([]);
+  const [filteredPurchases, setFilteredPurchases] = React.useState<Purchase[]>([]);
 
   const [dateRange, setDateRange] = React.useState<DateRange | undefined>({from: subDays(new Date(), 30), to: new Date()});
   const [selectedBase, setSelectedBase] = React.useState<string | undefined>("all");
@@ -49,6 +49,10 @@ export default function PurchasesPage() {
     setPurchases(updatedPurchases);
   };
   
+  React.useEffect(() => {
+    setPurchases(generateMockPurchases(20));
+  }, []);
+
   React.useEffect(() => {
     let tempPurchases = [...purchases];
 

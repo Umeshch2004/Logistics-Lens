@@ -181,8 +181,8 @@ const TransferForm = ({ onSubmitSuccess, onCancel }: { onSubmitSuccess: (data: T
 
 
 export default function TransfersPage() {
-  const [transfers, setTransfers] = React.useState<Transfer[]>(() => generateMockTransfers(15));
-  const [filteredTransfers, setFilteredTransfers] = React.useState<Transfer[]>(transfers);
+  const [transfers, setTransfers] = React.useState<Transfer[]>([]);
+  const [filteredTransfers, setFilteredTransfers] = React.useState<Transfer[]>([]);
   const [isFormOpen, setIsFormOpen] = React.useState(false);
 
   const [dateRange, setDateRange] = React.useState<DateRange | undefined>({from: subDays(new Date(), 30), to: new Date()});
@@ -193,6 +193,10 @@ export default function TransfersPage() {
     const updatedTransfers = [newTransfer, ...transfers].sort((a,b) => b.date.getTime() - a.date.getTime());
     setTransfers(updatedTransfers);
   };
+
+  React.useEffect(() => {
+    setTransfers(generateMockTransfers(15));
+  }, []);
 
   React.useEffect(() => {
     let tempTransfers = [...transfers];

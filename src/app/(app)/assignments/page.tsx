@@ -152,10 +152,10 @@ const ExpenditureFormComponent = ({ onSubmitSuccess, onCancel }: { onSubmitSucce
 
 export default function AssignmentsPage() {
   const [activeTab, setActiveTab] = React.useState("assignments");
-  const [assignments, setAssignments] = React.useState<Assignment[]>(() => generateMockAssignments(10));
-  const [expenditures, setExpenditures] = React.useState<Expenditure[]>(() => generateMockExpenditures(8));
-  const [filteredAssignments, setFilteredAssignments] = React.useState<Assignment[]>(assignments);
-  const [filteredExpenditures, setFilteredExpenditures] = React.useState<Expenditure[]>(expenditures);
+  const [assignments, setAssignments] = React.useState<Assignment[]>([]);
+  const [expenditures, setExpenditures] = React.useState<Expenditure[]>([]);
+  const [filteredAssignments, setFilteredAssignments] = React.useState<Assignment[]>([]);
+  const [filteredExpenditures, setFilteredExpenditures] = React.useState<Expenditure[]>([]);
 
   const [isAssignmentFormOpen, setIsAssignmentFormOpen] = React.useState(false);
   const [isExpenditureFormOpen, setIsExpenditureFormOpen] = React.useState(false);
@@ -163,6 +163,11 @@ export default function AssignmentsPage() {
   const [dateRange, setDateRange] = React.useState<DateRange | undefined>({from: subDays(new Date(), 30), to: new Date()});
   const [selectedBase, setSelectedBase] = React.useState<string | undefined>("all");
   const [selectedAssetType, setSelectedAssetType] = React.useState<string | undefined>("all");
+
+  React.useEffect(() => {
+    setAssignments(generateMockAssignments(10));
+    setExpenditures(generateMockExpenditures(8));
+  }, []);
 
   React.useEffect(() => {
     let tempAssignments = [...assignments];
