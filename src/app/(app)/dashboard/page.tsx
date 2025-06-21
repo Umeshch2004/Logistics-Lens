@@ -11,13 +11,6 @@ import { AppHeader } from "@/components/layout/AppHeader";
 import { PageHeader } from "@/components/shared/PageHeader";
 import { NetMovementModal } from "@/components/modals/NetMovementModal";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  ChartContainer,
-  ChartTooltipContent,
-  ChartLegend,
-  ChartLegendContent,
-  type ChartConfig,
-} from "@/components/ui/chart";
 
 // Data for charts
 const pieChartData = [
@@ -38,12 +31,6 @@ const activityLogData = [
   { date: "May 6", incoming: 130, outgoing: 90 },
   { date: "May 7", incoming: 160, outgoing: 110 },
 ];
-
-const activityChartConfig = {
-  incoming: { label: "Incoming", color: "hsl(var(--chart-2))" },
-  outgoing: { label: "Outgoing", color: "hsl(var(--chart-1))" },
-} satisfies ChartConfig;
-
 
 const AssetDistributionChart = () => (
   <Card>
@@ -87,9 +74,9 @@ const ActivityLogChart = () => (
       <CardTitle className="text-lg font-semibold text-foreground">Recent Activity</CardTitle>
     </CardHeader>
     <CardContent className="pl-2">
-      <ChartContainer config={activityChartConfig} className="h-[350px] w-full">
-        <BarChart accessibilityLayer data={activityLogData}>
-          <CartesianGrid vertical={false} />
+      <ResponsiveContainer width="100%" height={350}>
+        <BarChart data={activityLogData}>
+          <CartesianGrid vertical={false} strokeDasharray="3 3" />
           <XAxis
             dataKey="date"
             tickLine={false}
@@ -102,14 +89,18 @@ const ActivityLogChart = () => (
             tickMargin={10}
            />
           <Tooltip
-            cursor={false}
-            content={<ChartTooltipContent indicator="dot" />}
+            cursor={{ fill: 'hsl(var(--muted))' }}
+            contentStyle={{
+                backgroundColor: "hsl(var(--background))",
+                borderColor: "hsl(var(--border))",
+                borderRadius: "var(--radius)"
+              }}
           />
-          <Legend content={<ChartLegendContent />} />
-          <Bar dataKey="incoming" fill="var(--color-incoming)" radius={4} />
-          <Bar dataKey="outgoing" fill="var(--color-outgoing)" radius={4} />
+          <Legend />
+          <Bar dataKey="incoming" name="Incoming" fill="hsl(var(--chart-2))" radius={4} />
+          <Bar dataKey="outgoing" name="Outgoing" fill="hsl(var(--chart-1))" radius={4} />
         </BarChart>
-      </ChartContainer>
+      </ResponsiveContainer>
     </CardContent>
   </Card>
 );
