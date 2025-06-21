@@ -20,24 +20,14 @@ import {
 } from "@/components/ui/chart";
 
 // Data for charts
-const assetDistributionData = [
-  { category: "Vehicles", count: 250, fill: "var(--color-Vehicles)" },
-  { category: "Weapons", count: 480, fill: "var(--color-Weapons)" },
-  { category: "Ammunition", count: 1200, fill: "var(--color-Ammunition)" },
-  { category: "Electronics", count: 320, fill: "var(--color-Electronics)" },
-  { category: "Rations", count: 800, fill: "var(--color-Rations)" },
-  { category: "Medical Supplies", count: 150, fill: "var(--color-MedicalSupplies)" },
+const pieChartData = [
+  { name: "Vehicles", value: 250, color: "hsl(var(--chart-1))" },
+  { name: "Weapons", value: 480, color: "hsl(var(--chart-2))" },
+  { name: "Ammunition", value: 1200, color: "hsl(var(--chart-3))" },
+  { name: "Electronics", value: 320, color: "hsl(var(--chart-4))" },
+  { name: "Rations", value: 800, color: "hsl(var(--chart-5))" },
+  { name: "Medical Supplies", value: 150, color: "hsl(var(--destructive))" },
 ];
-
-const assetDistributionChartConfig = {
-  count: { label: "Count" },
-  Vehicles: { label: "Vehicles", color: "hsl(var(--chart-1))" },
-  Weapons: { label: "Weapons", color: "hsl(var(--chart-2))" },
-  Ammunition: { label: "Ammunition", color: "hsl(var(--chart-3))" },
-  Electronics: { label: "Electronics", color: "hsl(var(--chart-4))" },
-  Rations: { label: "Rations", color: "hsl(var(--chart-5))" },
-  MedicalSupplies: { label: "Medical Supplies", color: "hsl(var(--destructive))" },
-} satisfies ChartConfig;
 
 const activityLogData = [
   { date: "May 1", incoming: 120, outgoing: 80 },
@@ -60,36 +50,33 @@ const AssetDistributionChart = () => (
     <CardHeader>
       <CardTitle className="text-lg font-semibold text-foreground">Asset Distribution</CardTitle>
     </CardHeader>
-    <CardContent className="flex justify-center">
-      <ChartContainer
-        config={assetDistributionChartConfig}
-        className="mx-auto aspect-square max-h-[350px]"
-      >
-        <ResponsiveContainer width="100%" height="100%">
+    <CardContent className="flex items-center justify-center pt-8">
+        <ResponsiveContainer width="100%" height={300}>
           <PieChart>
-            <Tooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
-            />
             <Pie
-              data={assetDistributionData}
-              dataKey="count"
-              nameKey="category"
+              data={pieChartData}
+              dataKey="value"
+              nameKey="name"
+              cx="50%"
+              cy="50%"
               innerRadius={60}
-              strokeWidth={5}
+              outerRadius={100}
+              paddingAngle={2}
             >
-              {assetDistributionData.map((entry) => (
-                <Cell
-                  key={`cell-${entry.category}`}
-                  fill={entry.fill}
-                  className="stroke-background"
-                />
+              {pieChartData.map((entry) => (
+                <Cell key={`cell-${entry.name}`} fill={entry.color} />
               ))}
             </Pie>
-            <Legend />
+            <Tooltip
+              contentStyle={{
+                backgroundColor: "hsl(var(--background))",
+                borderColor: "hsl(var(--border))",
+                borderRadius: "var(--radius)"
+              }}
+            />
+            <Legend iconSize={12} />
           </PieChart>
         </ResponsiveContainer>
-      </ChartContainer>
     </CardContent>
   </Card>
 );
