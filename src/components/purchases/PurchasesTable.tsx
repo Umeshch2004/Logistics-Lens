@@ -52,7 +52,7 @@ export function PurchasesTable({ purchases }: PurchasesTableProps) {
               <TableCell className="text-right">${(purchase.quantity * purchase.unitPrice).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</TableCell>
               <TableCell>{purchase.supplier}</TableCell>
               <TableCell>
-                <Badge variant="secondary">{purchase.baseName || purchase.baseId}</Badge>
+                <Badge variant="secondary" size="lg">{purchase.baseName || purchase.baseId}</Badge>
               </TableCell>
               {/* <TableCell className="text-right">
                 <Button variant="ghost" size="icon" onClick={() => onEdit(purchase)} aria-label="Edit purchase" disabled={!canEdit}>

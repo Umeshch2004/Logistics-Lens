@@ -251,7 +251,7 @@ export default function AssignmentsPage() {
                   {filteredAssignments.length === 0 ? <TableRow><TableCell colSpan={6} className="text-center text-muted-foreground py-8">No assignments found.</TableCell></TableRow> :
                   filteredAssignments.map(a => (<TableRow key={a.id}>
                     <TableCell>{format(new Date(a.dateAssigned), "PP")}</TableCell><TableCell>{a.assetName}</TableCell><TableCell className="text-right">{a.quantityAssigned}</TableCell><TableCell>{a.personnelName}</TableCell>
-                    <TableCell><Badge variant="secondary">{a.baseName}</Badge></TableCell><TableCell><Badge variant={a.status === 'Assigned' ? 'default' : 'outline'}>{a.status}</Badge></TableCell>
+                    <TableCell><Badge variant="secondary" size="lg">{a.baseName}</Badge></TableCell><TableCell><Badge variant={a.status === 'Assigned' ? 'default' : 'outline'}>{a.status}</Badge></TableCell>
                   </TableRow>))}
                 </TableBody>
               </Table>
