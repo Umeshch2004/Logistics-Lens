@@ -3,7 +3,7 @@
 import * as React from "react";
 import type { DateRange } from "react-day-picker";
 import { DollarSign, ArrowRightLeft, Users, Archive } from "lucide-react";
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis, PieChart, Pie, Tooltip, Legend } from "recharts";
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis, PieChart, Pie, Tooltip, Legend, Cell } from "recharts";
 
 import { MetricCard } from "@/components/dashboard/MetricCard";
 import { FilterControls } from "@/components/shared/FilterControls";
@@ -26,7 +26,7 @@ const assetDistributionData = [
   { category: "Ammunition", count: 1200 },
   { category: "Electronics", count: 320 },
   { category: "Rations", count: 800 },
-  { category: "Medical Supplies", count: 150 },
+  { category: "MedicalSupplies", count: 150 },
 ];
 
 const assetDistributionChartConfig = {
@@ -36,7 +36,7 @@ const assetDistributionChartConfig = {
   Ammunition: { label: "Ammunition", color: "hsl(var(--chart-3))" },
   Electronics: { label: "Electronics", color: "hsl(var(--chart-4))" },
   Rations: { label: "Rations", color: "hsl(var(--chart-5))" },
-  "Medical Supplies": { label: "Medical Supplies", color: "hsl(var(--destructive))" },
+  MedicalSupplies: { label: "Medical Supplies", color: "hsl(var(--destructive))" },
 } satisfies ChartConfig;
 
 const activityLogData = [
@@ -76,7 +76,11 @@ const AssetDistributionChart = () => (
             nameKey="category"
             innerRadius={60}
             strokeWidth={5}
-          />
+          >
+            {assetDistributionData.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={`var(--color-${entry.category})`} className="stroke-background" />
+            ))}
+          </Pie>
           <ChartLegend
             content={<ChartLegendContent nameKey="category" />}
             className="-translate-y-2 flex-wrap gap-2 [&>*]:basis-1/4 [&>*]:justify-center"
