@@ -62,17 +62,10 @@ export default function PurchasesPage() {
       tempPurchases = tempPurchases.filter(p => p.baseName === selectedBase);
     }
     if (selectedAssetType && selectedAssetType !== "all") {
-      const assetCategory = MOCK_ASSET_TYPES.find(at => at.name === selectedAssetType)?.category;
-      if (assetCategory) { // This is filtering by selected asset type name, not category directly from filter.
-         // This logic needs to be aligned with how asset types are structured.
-         // For now, if an assetType name is selected, filter by that. If "all", then no filter.
-         // The filter control provides categories, the data has specific asset types.
-         // This example will filter if the purchase's asset type belongs to the selected category.
-         tempPurchases = tempPurchases.filter(p => {
-            const itemAssetType = MOCK_ASSET_TYPES.find(at => at.name === p.assetTypeName);
-            return itemAssetType?.category === selectedAssetType;
-         });
-      }
+      tempPurchases = tempPurchases.filter(p => {
+        const itemAssetType = MOCK_ASSET_TYPES.find(at => at.name === p.assetTypeName);
+        return itemAssetType?.category === selectedAssetType;
+      });
     }
     setFilteredPurchases(tempPurchases);
   }, [purchases, dateRange, selectedBase, selectedAssetType]);
